@@ -20,4 +20,20 @@ export class TodoListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // O método splice() permite inserir novos elementos e excluir elementos existentes em um array simultaneamente.
+  public deleteItemTaskList(event: number) {
+    this.taskList.splice(event, 1)
+  }
+
+  /**
+   * deleteAllTaskList
+   */
+  public deleteAllTaskList() {
+    const confirm = window.confirm("Você realmente deseja deletar tudo?")
+
+    if (confirm) {
+      this.taskList = []
+    }
+  }
+
 }
