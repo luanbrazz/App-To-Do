@@ -10,18 +10,16 @@ import { TaskList } from '../../model/task-list';
 })
 export class TodoListComponent implements DoCheck {
 
-  public taskList: Array <TaskList> = [
-    { task: "Minha nova Task", checked: true },
-    { task: "Minha nova Task 2", checked: false }
-  ];
+  public taskList: Array <TaskList> = JSON.parse(localStorage.getItem("list") || '[]');
+  // [
+  //   { task: "Minha nova Task", checked: true },
+  //   { task: "Minha nova Task 2", checked: false }
+  // ];
 
   constructor() {  }
 
   ngDoCheck() {
-    // O método sort() permite organizar uma lista em ordem ascendente ou descendente.
-    this.taskList.sort(
-      (first, last) => Number(first.checked) - Number(last.checked)
-    );
+    this.setLocalStorage();
   }
 
   public setEmitTaskList (event: string) {
@@ -52,4 +50,16 @@ export class TodoListComponent implements DoCheck {
     }
   }
 
+  public setLocalStorage(){
+    if (this.taskList) {
+      // O método sort() permite organizar uma lista em ordem ascendente ou descendente.
+    this.taskList.sort(
+       (first, last) => Number(first.checked) - Number(last.checked)
+     );
+     // localStorage é um objeto JavaScript que usamos para armazenar dados no navegador.
+     // Ele fornece métodos para armazenar e recuperar a informação
+                                       // stringify CONVERTE array p/ string
+     localStorage.setItem("list", JSON.stringify(this.taskList))
+  }
+  }
 }
